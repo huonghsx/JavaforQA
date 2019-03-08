@@ -1,0 +1,72 @@
+package firstSelenium;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AddToCartTest {
+	WebDriver driver;
+	
+	@Before
+	public void InitTestCase() throws InterruptedException
+	{
+		System.setProperty("webdriver.chrome.driver", "C:\\driver2\\chromedriver.exe");
+		//Khởi tạo driver
+		this.driver = new ChromeDriver();
+		//Mở maiden.vn homepage
+		this.driver.get("http://maiden.vn/");
+		//Chờ popup show
+		Thread.sleep(1000);
+		//Đóng popu lại
+		this.driver.findElement(By.cssSelector("a.close-tannm-modal")).click();
+		//Chờ popup đóng lại
+		Thread.sleep(1000);
+		
+	}
+	
+	@After
+	public void CloseTestCase()
+	{
+		this.driver.quit();
+	}
+/*
+ * 1. Thực hiện tìm kiếm một số sản phẩm trong hệ thống maiden.vn
+ * với từ khóa "giấy" */
+ 
+ @Test
+	public void searhGiay() throws InterruptedException
+	{
+		//When: Input "Giay" into textbox search
+		WebElement txtSearch = this.driver.findElement(By.cssSelector("input#txtSearchInput"));
+		txtUserName.sendKeys("giấy");
+		//And click Search
+		txtUserName.Enter();
+		//Then the the list item show
+		Thread.sleep(1000);
+
+	 /* 2. Thực hiện mua một sản phẩm bất kỳ trên kết quả tìm kiếm,
+ * chắc chắn rằng AddToCart popup sẽ hiện lên với thông tin sản
+ * phẩm đã chọn mua. */
+ 
+	List<WebElement> selects = driver.findElements(By.xpath("//*[@role='menu']"));
+	Random rand = new Random();
+	for(WebElement select : selects){
+    List<WebElement> options = 1;
+    int list = rand.nextInt(options.size());
+    options.get(list).click();
+	}
+	}
+ 
+
+ * 3. Tiến hành mua hàng và xác nhận sản phẩm đã mua với số lượng
+ * tương ứng tồn tại trong giỏ hàng
+ * 4. Trong trường hợp người dùng mua 1 sản phẩm 02 lần thì 
+ * chắc chắn rằng số lượng của sản phẩm này trong giỏ hàng sẽ được
+ * cộng dồn
+ */
+}
+//http://giangtester.com/bai-19-webdriver-script-don-gian-thu-ba/
