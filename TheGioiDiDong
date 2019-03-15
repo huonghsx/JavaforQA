@@ -1,0 +1,39 @@
+package utilities;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+//https://github.com/upgundecha/secookbook/tree/master/java
+public class TheGioiDiDong {
+	WebDriver driver;
+	@Before
+	public void InitTest() throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "/Users/WhiteButterfly/Downloads/chromedriver");
+		this.driver = new ChromeDriver();
+		this.driver.get("https://www.thegioididong.com/gio-hang");
+		// 1000 miliseconds to wait popup show
+		Thread.sleep(1000);
+	}
+	@After
+	public void closeTestcase() {
+		// this.driver.quit();
+	}
+	@Test
+	public void oder() {
+		// Kiem tra checkbox dia chi giao hang đã được chọn chưa. Nếu chưa thì click
+		WebElement chckBoxAddress = this.driver.findElement(By.cssSelector("div.address"));
+		if (!chckBoxAddress.isSelected()) {
+			chckBoxAddress.click();
+		}
+		//Khi thay doi thanh pho trong gio nhan hang thi chac chan cac quan huyen phai chuyen tuong ung
+		// Tạo đối tượng select
+		Select oSelect = new Select(this.driver.findElement(By.cssSelector("div.address")));
+		
+		
+	}
+}
